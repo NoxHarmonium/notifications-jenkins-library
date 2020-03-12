@@ -81,6 +81,8 @@ def call(Map config, Closure body) {
     final priorityChannel = config.priorityChannel ?: mainChannel // project-dev
     final isDistBranch = config.isDistBranch
     assert isDistBranch instanceof Boolean : "boolean value 'isDistBranch' must be passed in config map"
+    final currentBuild = config.currentBuild
+    assert currentBuild : "'currentBuild' global variable from pipeline must be passed in config map"
 
     try {
         stage('Notify Slack') {
