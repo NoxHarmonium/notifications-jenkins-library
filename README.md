@@ -14,6 +14,7 @@ Wraps build steps with Error handling and Slack notifications.
 - mainChannel: The Slack channel were most of the Slack notifications are sent (build start/end/error)
 - priorityChannel: The Slack channel where build failures for "dist" branches are sent
 - isDistBranch: If set to true, failures will be sent to the priority Slack channel
+- currentBuild: The global currentBuild object which used by the runBuild task to update the build status (it is not accessible from within the library itself)
 
 #### Example
 
@@ -25,7 +26,8 @@ runBuild(
     jiraBaseUrl: "https://jira.somedomain.com.au",
     mainChannel: "project-bots",
     priorityChannel: "project-dev",
-    isDistBranch: isDistBranch
+    isDistBranch: isDistBranch,
+    currentBuild: currentBuild
   ) {
     stage('Checkout code') {
       checkout scm
