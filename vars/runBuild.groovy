@@ -6,7 +6,7 @@ import net.sf.json.JSONArray
 import net.sf.json.JSONObject
 
 @NonCPS def extractJiraDetailsFromBranchName(branchName, jiraBaseUrl) {
-    def jiraTicketNumberMatcher = branchName =~ /\/([A-Z]+-\d+)\//
+    def jiraTicketNumberMatcher = branchName =~ /([A-Z]+-\d+)/
     if (jiraTicketNumberMatcher) {
         def ticketNumber = jiraTicketNumberMatcher[0][1]
         def url = "${jiraBaseUrl}/browse/${ticketNumber}"
