@@ -20,7 +20,7 @@ import net.sf.json.JSONObject
     def prNumberMatcher = branchName =~ /PR-(\d+)/
     if (prNumberMatcher) {
         def prNumber = prNumberMatcher[0][1]
-        def url = "${jiraBaseUrl}/projects/AFSA/repos/${project}/pull-requests/${prNumber}"
+        def url = env.CHANGE_URL
         return [true, prNumber, url]
     } else {
         return [false, null, null]
