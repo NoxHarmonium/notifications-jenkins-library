@@ -5,7 +5,7 @@
 import net.sf.json.JSONArray
 import net.sf.json.JSONObject
 
-@NonCPS def extractJiraDetailsFromBranchName(branchName) {
+@NonCPS def extractJiraDetailsFromBranchName(branchName, jiraBaseUrl) {
     def jiraTicketNumberMatcher = branchName =~ /\/([A-Z]+-\d+)\//
     if (jiraTicketNumberMatcher) {
         def ticketNumber = jiraTicketNumberMatcher[0][1]
@@ -16,7 +16,7 @@ import net.sf.json.JSONObject
     }
 }
 
-@NonCPS def extractPRDetailsFromBranchName(branchName) {
+@NonCPS def extractPRDetailsFromBranchName(branchName, jiraBaseUrl) {
     def prNumberMatcher = branchName =~ /PR-(\d+)/
     if (prNumberMatcher) {
         def prNumber = prNumberMatcher[0][1]
@@ -45,8 +45,8 @@ def notifySlack(jiraBaseUrl, mainChannel, priorityChannel, isDistBranch, String 
         color = 'danger'
     }
 
-    def (hasAssociatedJiraTicket, jiraTicketNumber, jiraTicketUrl) = extractJiraDetailsFromBranchName(env.BRANCH_NAME)
-    def (hasAssociatedPr, prNumber, prUrl) = extractPRDetailsFromBranchName(env.BRANCH_NAME)
+    def (hasAssociatedJiraTicket, jiraTicketNumber, jiraTicketUrl) = extractJiraDetailsFromBranchName(env.BRANCH_NAME, jiraBaseUrl)
+    def (hasAssociatedPr, prNumber, prUrl) = extractPRDetailsFromBranchName(env.BRANCH_NAME, jiraBaseUrl)
     def unescapedJobName = java.net.URLDecoder.decode(env.JOB_NAME, 'UTF-8')
 
     def defaultFields = [
