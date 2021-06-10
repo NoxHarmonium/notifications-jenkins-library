@@ -90,9 +90,11 @@ def call(Map config, Closure body) {
         }
 
         body()
-        
-        stage('Mark build as success') {
-            currentBuild.result = "SUCCESS"
+
+        stage('Mark build as success (if not already set)') {
+            if (currentBuild.result == null){
+                currentBuild.result = "SUCCESS"
+            }
         }
     } catch (InterruptedException e) {
         // Build interupted
