@@ -31,16 +31,19 @@ def notifySlack(jiraBaseUrl, mainChannel, priorityChannel, isDistBranch, String 
     // Build status of null means success.
     buildStatus = buildStatus ?: 'SUCCESS'
     final boolean alertDevChannel = buildStatus != 'SUCCESS' && buildStatus != 'STARTED' && isDistBranch
-    final greyColor = '#D4DADF'
 
-    def color
+    // Make the colours slightly different so they are visually distinguishable
+    final startedGreyColor = '#D4DADF'
+    final abortedGreyColor = '#666666'
 
     if (buildStatus == 'STARTED') {
-        color = greyColor
+        color = startedGreyColor
     } else if (buildStatus == 'SUCCESS') {
         color = 'good'
     } else if (buildStatus == 'UNSTABLE') {
         color = 'warning'
+    } else if (buildStatus == 'ABORTED') {
+        color = abortedGreyColor
     } else {
         color = 'danger'
     }
