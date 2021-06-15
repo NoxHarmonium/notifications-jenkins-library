@@ -20,7 +20,7 @@ Wraps build steps with Error handling and Slack notifications.
 
 ```groovy
 
-final isDistBranch = env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'develop'
+final isDistBranch = env.BRANCH_NAME == 'main' || env.BRANCH_NAME == 'develop'
 
 runBuild(
     jiraBaseUrl: "https://jira.somedomain.com.au",
